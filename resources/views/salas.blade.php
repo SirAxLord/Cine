@@ -69,12 +69,14 @@
                         <td class="px-6 py-4 whitespace-nowrap text-neutral-900 dark:text-neutral-100">{{ $sala->sucursal->name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center gap-3">
+                                <form method="GET" action="{{ route('salas.show', $sala->id) }}">
+                                    <flux:button type="submit" class="inline-flex items-center rounded-md !bg-blue-600 px-3 py-1.5 !text-white hover:!bg-blue-700 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">{{ __('Modificar') }}</flux:button>
+                                </form>
                                 <form method="POST" action="{{ route('salas.delete', $sala->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <flux:button size="sm" class="text-red-600 hover:text-red-900" onclick="this.closest('form').submit();">{{ __('Eliminar') }}</flux:button>
+                                    <flux:button type="submit" class="inline-flex items-center rounded-md !bg-red-600 px-3 py-1.5 !text-white hover:!bg-red-700 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">{{ __('Eliminar') }}</flux:button>
                                 </form>
-                                <flux:brand href="{{ route('salas.show', $sala->id) }}" size="sm" class="text-blue-600 hover:text-blue-900">{{ __('Modificar') }}</flux:brand>
                             </div>
                         </td>
                     </tr>

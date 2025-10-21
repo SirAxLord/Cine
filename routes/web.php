@@ -9,6 +9,7 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\sucursalesController;
 use App\Http\Controllers\salasController;
+use App\Http\Controllers\peliculasController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,6 +50,13 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['put','patch'], 'salas/update/{id}', [salasController::class, 'update'])->name('salas.update');
         Route::delete('salas/delete/{id}', [salasController::class, 'delete'])->name('salas.delete');
         Route::get('salas/modifica/{id}', [salasController::class, 'show'])->name('salas.show');
+
+        //Rutas de Peliculas
+        Route::get('peliculas/index', [peliculasController::class, 'index'])->name('peliculas.index');
+        Route::post('peliculas/save', [peliculasController::class, 'save'])->name('peliculas.save');
+        Route::match(['put','patch'], 'peliculas/update/{id}', [peliculasController::class, 'update'])->name('peliculas.update');
+        Route::delete('peliculas/delete/{id}', [peliculasController::class, 'delete'])->name('peliculas.delete');
+        Route::get('peliculas/modifica/{id}', [peliculasController::class, 'show'])->name('peliculas.show');
 
 });
 
