@@ -10,6 +10,7 @@ use App\Http\Controllers\adminController;
 use App\Http\Controllers\sucursalesController;
 use App\Http\Controllers\salasController;
 use App\Http\Controllers\peliculasController;
+use App\Http\Controllers\funcionesAdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +58,13 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['put','patch'], 'peliculas/update/{id}', [peliculasController::class, 'update'])->name('peliculas.update');
         Route::delete('peliculas/delete/{id}', [peliculasController::class, 'delete'])->name('peliculas.delete');
         Route::get('peliculas/modifica/{id}', [peliculasController::class, 'show'])->name('peliculas.show');
+
+    //Rutas de Funciones (Administrador)
+    Route::get('funciones/index', [funcionesAdminController::class, 'index'])->name('funciones.index');
+    Route::post('funciones/save', [funcionesAdminController::class, 'save'])->name('funciones.save');
+    Route::match(['put','patch'], 'funciones/update/{id}', [funcionesAdminController::class, 'update'])->name('funciones.update');
+    Route::delete('funciones/delete/{id}', [funcionesAdminController::class, 'delete'])->name('funciones.delete');
+    Route::get('funciones/modifica/{id}', [funcionesAdminController::class, 'show'])->name('funciones.show');
 
 });
 
