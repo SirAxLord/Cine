@@ -4,9 +4,23 @@
             <flux:heading size="lg">{{ __('Funciones Admin') }}</flux:heading>
             <flux:text class="mt-2">{{ __('Gestión de funciones para administradores') }}</flux:text>
         </div>
-        <flux:modal.trigger name="funcion-create">
-            <flux:button variant="primary">{{ __('Agregar Función') }}</flux:button>
-        </flux:modal.trigger>
+        <div class="flex items-center gap-3">
+            <form method="POST" action="{{ route('reportes.peliculas-salas') }}" class="flex items-center gap-2">
+                @csrf
+                <select name="sala_id" class="block w-48 rounded-md border border-neutral-300 bg-white px-2 py-1.5 text-sm text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 dark:border-neutral-700">
+                    <option value="">{{ __('Todas las salas') }}</option>
+                    @foreach ($salas as $sala)
+                        <option value="{{ $sala->id }}">{{ $sala->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="inline-flex items-center rounded-md !bg-emerald-600 px-3 py-1.5 !text-white hover:!bg-emerald-700 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
+                    {{ __('Exportar PDF') }}
+                </button>
+            </form>
+            <flux:modal.trigger name="funcion-create">
+                <flux:button variant="primary">{{ __('Agregar Función') }}</flux:button>
+            </flux:modal.trigger>
+        </div>
     </div>
 
     <div class="mt-6 overflow-hidden bg-white dark:bg-neutral-800 shadow-sm ring-1 ring-black ring-opacity-5 rounded-lg">
@@ -109,7 +123,7 @@
             </div>
             <div>
                 <flux:label for="costo" value="{{ __('Costo') }}" />
-                <flux:input id="costo" name="costo" type="number" step="0.01" class="mt-1 block w-full" :value="old('costo')" required />
+                <flux:input id="costo" name="costo" type="number" step="0.01" class="mt-1 block w-full" :value="old('costo')" placeholder="Costo del boleto" required />
                 @foreach ($errors->get('costo') as $message)
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @endforeach

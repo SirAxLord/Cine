@@ -22,7 +22,7 @@
 
                 <flux:navlist.group :heading="__('Usuario')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Funciones') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('funciones.user.index')" :current="request()->routeIs('funciones.user.*')" wire:navigate>{{ __('Funciones') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

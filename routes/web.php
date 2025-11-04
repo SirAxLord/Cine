@@ -11,12 +11,16 @@ use App\Http\Controllers\sucursalesController;
 use App\Http\Controllers\salasController;
 use App\Http\Controllers\peliculasController;
 use App\Http\Controllers\funcionesAdminController;
+use App\Http\Controllers\funcionesController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', function () {
+    $salas = \App\Models\sala::all();
+    return view('dashboard', compact('salas'));
+})
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -65,6 +69,13 @@ Route::middleware(['auth'])->group(function () {
     Route::match(['put','patch'], 'funciones/update/{id}', [funcionesAdminController::class, 'update'])->name('funciones.update');
     Route::delete('funciones/delete/{id}', [funcionesAdminController::class, 'delete'])->name('funciones.delete');
     Route::get('funciones/modifica/{id}', [funcionesAdminController::class, 'show'])->name('funciones.show');
+
+    // Rutas de Funciones (Usuario)
+    Route::get('funciones', [funcionesController::class, 'index'])->name('funciones.user.index');
+    Route::get('funciones/detalle/{id}', [funcionesController::class, 'show'])->name('funciones.user.show');
+
+    // Reporte PDF de Películas por Sala
+    Route::post('reportes/peliculas-salas', [adminController::class, 'generarReportePeliculasSalas'])->name('reportes.peliculas-salas');
 
 });
 
