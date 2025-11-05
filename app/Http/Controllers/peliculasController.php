@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Models\pelicula as Pelicula;
+use App\Mail\Boletos;
 
 class peliculasController extends Controller
 {
@@ -28,7 +30,7 @@ class peliculasController extends Controller
         $pelicula->duration = $validated['duration'];
         $pelicula->director = $validated['director'];
         $pelicula->save();
-
+        Mail::to('axel.loredo1311@gmail.com')->send(new Boletos($pelicula));
         return redirect()->route('peliculas.index');
     }
 
